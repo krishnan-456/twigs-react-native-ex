@@ -1,112 +1,317 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { ScrollView, StyleSheet, View, Pressable, Linking } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Text, Flex, Box, Avatar, Switch, Radio, Button } from 'testing-twigs';
 
-import { Collapsible } from '@/components/ui/collapsible';
-import { ExternalLink } from '@/components/external-link';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Fonts } from '@/constants/theme';
+import { useAppTheme, ColorMode } from '@/context/AppThemeContext';
 
-export default function TabTwoScreen() {
+interface SettingRowProps {
+  title: string;
+  subtitle?: string;
+  children: React.ReactNode;
+}
+
+function SettingRow({ title, subtitle, children }: SettingRowProps) {
+  const { textColor, secondaryTextColor } = useAppTheme();
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
-      headerImage={
-        <IconSymbol
-          size={310}
-          color="#808080"
-          name="chevron.left.forwardslash.chevron.right"
-          style={styles.headerImage}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText
-          type="title"
-          style={{
-            fontFamily: Fonts.rounded,
-          }}>
-          Explore
-        </ThemedText>
-      </ThemedView>
-      <ThemedText>This app includes example code to help you get started.</ThemedText>
-      <Collapsible title="File-based routing">
-        <ThemedText>
-          This app has two screens:{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/explore.tsx</ThemedText>
-        </ThemedText>
-        <ThemedText>
-          The layout file in <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText>{' '}
-          sets up the tab navigator.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/router/introduction">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Android, iOS, and web support">
-        <ThemedText>
-          You can open this project on Android, iOS, and the web. To open the web version, press{' '}
-          <ThemedText type="defaultSemiBold">w</ThemedText> in the terminal running this project.
-        </ThemedText>
-      </Collapsible>
-      <Collapsible title="Images">
-        <ThemedText>
-          For static images, you can use the <ThemedText type="defaultSemiBold">@2x</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">@3x</ThemedText> suffixes to provide files for
-          different screen densities
-        </ThemedText>
-        <Image
-          source={require('@/assets/images/react-logo.png')}
-          style={{ width: 100, height: 100, alignSelf: 'center' }}
-        />
-        <ExternalLink href="https://reactnative.dev/docs/images">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Light and dark mode components">
-        <ThemedText>
-          This template has light and dark mode support. The{' '}
-          <ThemedText type="defaultSemiBold">useColorScheme()</ThemedText> hook lets you inspect
-          what the user&apos;s current color scheme is, and so you can adjust UI colors accordingly.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Animations">
-        <ThemedText>
-          This template includes an example of an animated component. The{' '}
-          <ThemedText type="defaultSemiBold">components/HelloWave.tsx</ThemedText> component uses
-          the powerful{' '}
-          <ThemedText type="defaultSemiBold" style={{ fontFamily: Fonts.mono }}>
-            react-native-reanimated
-          </ThemedText>{' '}
-          library to create a waving hand animation.
-        </ThemedText>
-        {Platform.select({
-          ios: (
-            <ThemedText>
-              The <ThemedText type="defaultSemiBold">components/ParallaxScrollView.tsx</ThemedText>{' '}
-              component provides a parallax effect for the header image.
-            </ThemedText>
-          ),
-        })}
-      </Collapsible>
-    </ParallaxScrollView>
+    <Flex direction="row" align="center" justify="space-between" paddingVertical={14}>
+      <Flex flex={1} gap={2} marginRight={16}>
+        <Text fontSize={15} fontWeight="500" color={textColor}>
+          {title}
+        </Text>
+        {subtitle && (
+          <Text fontSize={13} color={secondaryTextColor}>
+            {subtitle}
+          </Text>
+        )}
+      </Flex>
+      {children}
+    </Flex>
+  );
+}
+
+interface SettingSectionProps {
+  title: string;
+  children: React.ReactNode;
+}
+
+function SettingSection({ title, children }: SettingSectionProps) {
+  const { surfaceColor, borderColor, secondaryTextColor } = useAppTheme();
+
+  return (
+    <Flex marginBottom={24}>
+      <Text
+        fontSize={13}
+        fontWeight="600"
+        color={secondaryTextColor}
+        marginBottom={8}
+        marginLeft={4}
+        textTransform="uppercase"
+        letterSpacing={0.5}
+      >
+        {title}
+      </Text>
+      <Box
+        css={{
+          backgroundColor: surfaceColor,
+          borderRadius: 12,
+          borderWidth: 1,
+          borderColor: borderColor,
+          overflow: 'hidden',
+        }}
+      >
+        <Box paddingHorizontal={16}>{children}</Box>
+      </Box>
+    </Flex>
+  );
+}
+
+export default function SettingsScreen() {
+  const insets = useSafeAreaInsets();
+  const {
+    backgroundColor,
+    textColor,
+    secondaryTextColor,
+    surfaceColor,
+    borderColor,
+    colorMode,
+    setColorMode,
+    isDark,
+  } = useAppTheme();
+
+  // Settings state
+  const [notifications, setNotifications] = useState(true);
+  const [emailNotifications, setEmailNotifications] = useState(false);
+  const [soundEnabled, setSoundEnabled] = useState(true);
+  const [hapticFeedback, setHapticFeedback] = useState(true);
+  const [autoSync, setAutoSync] = useState(true);
+  const [sortOrder, setSortOrder] = useState<'date' | 'priority' | 'alphabetical'>('date');
+
+  const themeOptions: { key: ColorMode; label: string }[] = [
+    { key: 'light', label: 'Light' },
+    { key: 'dark', label: 'Dark' },
+    { key: 'system', label: 'System' },
+  ];
+
+  return (
+    <View style={[styles.container, { backgroundColor }]}>
+      <ScrollView
+        style={styles.scrollView}
+        contentContainerStyle={[
+          styles.contentContainer,
+          { paddingTop: insets.top + 16, paddingBottom: insets.bottom + 100 },
+        ]}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* Header */}
+        <Flex marginBottom={24}>
+          <Text fontSize={28} fontWeight="700" color={textColor}>
+            Settings
+          </Text>
+        </Flex>
+
+        {/* Profile Section */}
+        <Pressable>
+          <Box
+            padding={16}
+            marginBottom={24}
+            css={{
+              backgroundColor: surfaceColor,
+              borderRadius: 12,
+              borderWidth: 1,
+              borderColor: borderColor,
+            }}
+          >
+            <Flex direction="row" align="center" gap={16}>
+              <Avatar
+                name="John Doe"
+                width={64}
+                height={64}
+                backgroundColor={isDark ? '#3A9DA5' : '#00828D'}
+                textColor="#FFFFFF"
+                textSize={24}
+              />
+              <Flex flex={1} gap={4}>
+                <Text fontSize={18} fontWeight="600" color={textColor}>
+                  John Doe
+                </Text>
+                <Text fontSize={14} color={secondaryTextColor}>
+                  john.doe@example.com
+                </Text>
+                <Text fontSize={13} color={isDark ? '#3A9DA5' : '#00828D'}>
+                  Pro Member
+                </Text>
+              </Flex>
+              <Text fontSize={20} color={secondaryTextColor}>›</Text>
+            </Flex>
+          </Box>
+        </Pressable>
+
+        {/* Appearance */}
+        <SettingSection title="Appearance">
+          <Flex paddingVertical={14}>
+            <Text fontSize={15} fontWeight="500" color={textColor} marginBottom={12}>
+              Theme
+            </Text>
+            <Flex direction="row" gap={12}>
+              {themeOptions.map((option) => (
+                <Pressable
+                  key={option.key}
+                  onPress={() => setColorMode(option.key)}
+                  style={[
+                    styles.themeOption,
+                    {
+                      backgroundColor:
+                        colorMode === option.key
+                          ? isDark
+                            ? '#3A9DA5'
+                            : '#00828D'
+                          : isDark
+                          ? '#374151'
+                          : '#F3F4F6',
+                      borderColor:
+                        colorMode === option.key
+                          ? 'transparent'
+                          : borderColor,
+                    },
+                  ]}
+                >
+                  <Text
+                    fontSize={13}
+                    fontWeight="500"
+                    color={colorMode === option.key ? '#FFFFFF' : secondaryTextColor}
+                  >
+                    {option.label}
+                  </Text>
+                </Pressable>
+              ))}
+            </Flex>
+          </Flex>
+        </SettingSection>
+
+        {/* Notifications */}
+        <SettingSection title="Notifications">
+          <SettingRow
+            title="Push Notifications"
+            subtitle="Receive reminders for tasks"
+          >
+            <Switch value={notifications} onValueChange={setNotifications} />
+          </SettingRow>
+          <Box css={{ height: 1, backgroundColor: borderColor, marginLeft: -16, marginRight: -16 }} />
+          <SettingRow
+            title="Email Notifications"
+            subtitle="Daily digest of your tasks"
+          >
+            <Switch value={emailNotifications} onValueChange={setEmailNotifications} />
+          </SettingRow>
+          <Box css={{ height: 1, backgroundColor: borderColor, marginLeft: -16, marginRight: -16 }} />
+          <SettingRow
+            title="Sound"
+            subtitle="Play sound on completion"
+          >
+            <Switch value={soundEnabled} onValueChange={setSoundEnabled} />
+          </SettingRow>
+          <Box css={{ height: 1, backgroundColor: borderColor, marginLeft: -16, marginRight: -16 }} />
+          <SettingRow
+            title="Haptic Feedback"
+            subtitle="Vibrate on interactions"
+          >
+            <Switch value={hapticFeedback} onValueChange={setHapticFeedback} />
+          </SettingRow>
+        </SettingSection>
+
+        {/* Task Preferences */}
+        <SettingSection title="Task Preferences">
+          <SettingRow title="Auto Sync" subtitle="Sync tasks across devices">
+            <Switch value={autoSync} onValueChange={setAutoSync} />
+          </SettingRow>
+          <Box css={{ height: 1, backgroundColor: borderColor, marginLeft: -16, marginRight: -16 }} />
+          <Flex paddingVertical={14}>
+            <Text fontSize={15} fontWeight="500" color={textColor} marginBottom={12}>
+              Default Sort Order
+            </Text>
+            <Flex gap={12}>
+              <Radio
+                selected={sortOrder === 'date'}
+                onSelect={() => setSortOrder('date')}
+                size="md"
+              >
+                <Text color={textColor}>By Date (newest first)</Text>
+              </Radio>
+              <Radio
+                selected={sortOrder === 'priority'}
+                onSelect={() => setSortOrder('priority')}
+                size="md"
+              >
+                <Text color={textColor}>By Priority (high to low)</Text>
+              </Radio>
+              <Radio
+                selected={sortOrder === 'alphabetical'}
+                onSelect={() => setSortOrder('alphabetical')}
+                size="md"
+              >
+                <Text color={textColor}>Alphabetically (A to Z)</Text>
+              </Radio>
+            </Flex>
+          </Flex>
+        </SettingSection>
+
+        {/* About */}
+        <SettingSection title="About">
+          <SettingRow title="Version" subtitle="Built with testing-twigs">
+            <Text fontSize={14} color={secondaryTextColor}>1.0.0</Text>
+          </SettingRow>
+          <Box css={{ height: 1, backgroundColor: borderColor, marginLeft: -16, marginRight: -16 }} />
+          <Pressable onPress={() => Linking.openURL('https://www.npmjs.com/package/testing-twigs')}>
+            <SettingRow title="View Package" subtitle="testing-twigs on npm">
+              <Text fontSize={20} color={secondaryTextColor}>›</Text>
+            </SettingRow>
+          </Pressable>
+        </SettingSection>
+
+        {/* Danger Zone */}
+        <SettingSection title="Danger Zone">
+          <Flex paddingVertical={14} gap={12}>
+            <Button variant="outline" color="negative" size="lg" css={{ width: '100%' }}>
+              Clear All Tasks
+            </Button>
+            <Button variant="ghost" color="negative" size="md" css={{ width: '100%' }}>
+              Delete Account
+            </Button>
+          </Flex>
+        </SettingSection>
+
+        {/* Footer */}
+        <Flex align="center" marginTop={8} marginBottom={16}>
+          <Text fontSize={12} color={secondaryTextColor} textAlign="center">
+            Task Manager Example App
+          </Text>
+          <Text fontSize={12} color={secondaryTextColor} textAlign="center">
+            Powered by testing-twigs v0.1.9
+          </Text>
+        </Flex>
+      </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  headerImage: {
-    color: '#808080',
-    bottom: -90,
-    left: -35,
-    position: 'absolute',
+  container: {
+    flex: 1,
   },
-  titleContainer: {
-    flexDirection: 'row',
-    gap: 8,
+  scrollView: {
+    flex: 1,
+  },
+  contentContainer: {
+    paddingHorizontal: 20,
+  },
+  themeOption: {
+    flex: 1,
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    borderRadius: 8,
+    borderWidth: 1,
+    alignItems: 'center',
   },
 });

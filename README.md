@@ -1,50 +1,80 @@
-# Welcome to your Expo app 👋
+# testing-twigs Example App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A Task Manager app demonstrating all components from the [testing-twigs](https://www.npmjs.com/package/testing-twigs) React Native component library.
 
-## Get started
+## Features
 
-1. Install dependencies
+- **Task Management**: Create, edit, delete, and complete tasks
+- **Dark/Light Mode**: Theme toggle with system preference support
+- **All Components Used**: Button, Text, TextInput, Checkbox, Switch, Radio, Avatar, Flex, Box, BottomSheet
 
-   ```bash
-   npm install
-   ```
+## Components Showcase
 
-2. Start the app
+| Component | Usage in App |
+|-----------|-------------|
+| `TwigsProvider` | Root theme provider with light/dark themes |
+| `Text` | All text throughout the app |
+| `Button` | Filters, actions, form submissions |
+| `TextInput` | Task title, description inputs |
+| `Checkbox` | Task completion toggle |
+| `Switch` | Settings toggles |
+| `Radio` | Priority selection, sort order |
+| `Avatar` | User profile display |
+| `Flex` | Layout arrangements |
+| `Box` | Cards, containers |
+| `BottomSheet` | Task details, add/edit forms |
 
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## Getting Started
 
 ```bash
-npm run reset-project
+# Install dependencies
+npm install
+
+# Start the app
+npm start
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Theme Integration
 
-## Learn more
+The app demonstrates how to pass custom themes to `TwigsProvider`:
 
-To learn more about developing your project with Expo, look at the following resources:
+```tsx
+import { TwigsProvider } from 'testing-twigs';
+import { lightTheme, darkTheme } from './constants/twigs-themes';
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+<TwigsProvider theme={isDark ? darkTheme : lightTheme}>
+  {/* App */}
+</TwigsProvider>
+```
 
-## Join the community
+## Project Structure
 
-Join our community of developers creating universal apps.
+```
+├── app/
+│   ├── _layout.tsx          # Root layout with TwigsProvider
+│   ├── (tabs)/
+│   │   ├── index.tsx        # Tasks screen
+│   │   └── explore.tsx      # Settings screen
+│   └── modal.tsx            # Modal example
+├── components/
+│   ├── TaskItem.tsx         # Task list item
+│   ├── AddTaskSheet.tsx     # Add/Edit task bottom sheet
+│   └── TaskDetailSheet.tsx  # Task detail bottom sheet
+├── context/
+│   ├── AppThemeContext.tsx  # Theme management
+│   └── TaskContext.tsx      # Task state management
+└── constants/
+    └── twigs-themes.ts      # Light and dark theme definitions
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Dependencies
+
+- `testing-twigs` - UI component library
+- `@gorhom/bottom-sheet` - Bottom sheet (peer dependency)
+- `react-native-reanimated` - Animations (peer dependency)
+- `react-native-gesture-handler` - Gestures (peer dependency)
+- `react-native-svg` - SVG support (peer dependency)
+
+## License
+
+MIT

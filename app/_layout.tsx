@@ -1,24 +1,43 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import 'react-native-reanimated';
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import { TwigsProvider, BottomSheetModalProvider } from 'testing-twigs';
+import { AppThemeProvider, useAppTheme } from '@/context/AppThemeContext';
+import { TaskProvider } from '@/context/TaskContext';
+import { lightTheme, darkTheme } from '@/constants/twigs-themes';
 
 export const unstable_settings = {
   anchor: '(tabs)',
 };
 
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
+function RootLayoutContent() {
+  const { isDark } = useAppTheme();
 
+  // Pass the theme directly to TwigsProvider based on dark mode
+  // TwigsProvider will deep merge this with the default theme
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <TwigsProvider theme={isDark ? darkTheme : lightTheme}>
+      <BottomSheetModalProvider>
+        <TaskProvider>
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
+          </Stack>
+        </TaskProvider>
+        <StatusBar style={isDark ? 'light' : 'dark'} />
+      </BottomSheetModalProvider>
+    </TwigsProvider>
+  );
+}
+
+export default function RootLayout() {
+  return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <AppThemeProvider>
+        <RootLayoutContent />
+      </AppThemeProvider>
+    </GestureHandlerRootView>
   );
 }
