@@ -1,0 +1,31 @@
+{
+  "setupTasks": [
+    {
+      "command": "npm install",
+      "name": "Installing Dependencies"
+    }
+  ],
+  "tasks": {
+    "start": {
+      "name": "start",
+      "command": "npm run web",
+      "runAtStart": true
+    },
+    "android": {
+      "name": "android",
+      "command": "npm run android"
+    },
+    "ios": {
+      "name": "ios",
+      "command": "npm run ios"
+    },
+    "web": {
+      "name": "web",
+      "command": "npm run web"
+    },
+    "lint": {
+      "name": "lint",
+      "command": "npm run lint"
+    }
+  }
+}
