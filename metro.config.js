@@ -3,11 +3,15 @@ const path = require('path');
 
 const config = getDefaultConfig(__dirname);
 
-module.exports = (async () => {
-  const { withStorybook } = await import(
-    '@storybook/react-native/metro/withStorybook'
-  );
-  return withStorybook(config, {
+const storybookEnabled = process.env.STORYBOOK_ENABLED !== 'false';
+
+if (storybookEnabled) {
+  const {
+    withStorybook,
+  } = require('@storybook/react-native/metro/withStorybook');
+  module.exports = withStorybook(config, {
     configPath: path.resolve(__dirname, '.rnstorybook'),
   });
-})();
+} else {
+  module.exports = config;
+}
