@@ -1,0 +1,116 @@
+import React from 'react';
+import { View, StyleSheet } from 'react-native';
+import type { Meta, StoryObj } from '@storybook/react-native';
+import { Avatar, Text } from 'testing-twigs';
+import type { AvatarProps } from 'testing-twigs';
+
+const SAMPLE_AVATAR_URL =
+  'https://images.unsplash.com/photo-1511485977113-f34c92461ad9?ixlib=rb-1.2.1&w=512&h=512&dpr=2&q=80';
+
+const docsStyles = StyleSheet.create({
+  container: { gap: 16 },
+  title: { fontSize: 24, fontFamily: 'DMSans_700Bold' },
+  description: { fontSize: 14, color: '#666', lineHeight: 20, fontFamily: 'DMSans_400Regular' },
+  section: { gap: 8 },
+  sectionTitle: { fontSize: 16, fontFamily: 'DMSans_600SemiBold' },
+  prop: { fontSize: 13, color: '#444', lineHeight: 18, fontFamily: 'DMSans_400Regular' },
+});
+
+const meta = {
+  title: 'Components/Avatar',
+  component: Avatar,
+  argTypes: {
+    size: {
+      control: 'select',
+      options: ['xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl', '5xl'],
+      description: 'Size preset',
+    },
+    name: {
+      control: 'text',
+      description: 'Name used for initials and accessibility label',
+    },
+    imageSrc: {
+      control: 'text',
+      description: 'Image URL for the avatar',
+    },
+    isAnonymous: {
+      control: 'boolean',
+      description: 'Show anonymous avatar style with dashed border and question mark',
+    },
+    rounded: {
+      control: 'select',
+      options: ['xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', 'full'],
+      description: 'Border radius variant',
+    },
+    backgroundColor: {
+      control: 'color',
+      description: 'Custom background color',
+    },
+    textColor: {
+      control: 'color',
+      description: 'Custom text/initials color',
+    },
+  },
+  args: {
+    name: 'John Doe',
+    size: 'md',
+    rounded: 'full',
+    imageSrc: SAMPLE_AVATAR_URL,
+    isAnonymous: false,
+  },
+} satisfies Meta<AvatarProps>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Docs: Story = {
+  render: () => (
+    <View style={docsStyles.container}>
+      <Text style={docsStyles.title}>Avatar</Text>
+      <Text style={docsStyles.description}>
+        Displays a user avatar with image, initials fallback, or anonymous placeholder. Supports
+        multiple sizes and rounded shapes.
+      </Text>
+      <View style={docsStyles.section}>
+        <Text style={docsStyles.sectionTitle}>Props</Text>
+        <Text style={docsStyles.prop}>
+          • size — 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' ... '5xl' (default: 'md')
+        </Text>
+        <Text style={docsStyles.prop}>• name — name for initials fallback</Text>
+        <Text style={docsStyles.prop}>• imageSrc — image URL</Text>
+        <Text style={docsStyles.prop}>• isAnonymous — anonymous placeholder (default: false)</Text>
+        <Text style={docsStyles.prop}>
+          • rounded — 'xs' ... '3xl' | 'full' (default: 'full')
+        </Text>
+        <Text style={docsStyles.prop}>• backgroundColor / textColor — custom colors</Text>
+      </View>
+      <View style={docsStyles.section}>
+        <Text style={docsStyles.sectionTitle}>Usage</Text>
+        <Avatar name="John Doe" size="lg" imageSrc={SAMPLE_AVATAR_URL} />
+      </View>
+    </View>
+  ),
+};
+
+export const Default: Story = {};
+
+export const AllVariants: Story = {
+  render: () => (
+    <View style={{ gap: 16 }}>
+      <View style={{ flexDirection: 'row', gap: 12, alignItems: 'center' }}>
+        <Avatar name="A" size="xs" />
+        <Avatar name="B" size="sm" />
+        <Avatar name="C" size="md" />
+        <Avatar name="D" size="lg" />
+        <Avatar name="E" size="xl" />
+      </View>
+      <View style={{ flexDirection: 'row', gap: 12, alignItems: 'center' }}>
+        <Avatar name="Image" size="lg" imageSrc={SAMPLE_AVATAR_URL} />
+        <Avatar name="Initials" size="lg" />
+        <Avatar name="Anonymous" size="lg" isAnonymous />
+        <Avatar name="Squircle" size="lg" rounded="lg" imageSrc={SAMPLE_AVATAR_URL} />
+      </View>
+    </View>
+  ),
+};

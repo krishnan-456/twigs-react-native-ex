@@ -1,0 +1,131 @@
+import React from 'react';
+import { View, StyleSheet } from 'react-native';
+import type { Meta, StoryObj } from '@storybook/react-native';
+import { Svg, Path } from 'react-native-svg';
+import { Badge, Text } from 'testing-twigs';
+import type { BadgeProps } from 'testing-twigs';
+
+const PlusIcon = ({ size = 12, color = '#111' }: { size?: number; color?: string }) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <Path
+      d="M12 5V19M5 12H19"
+      stroke={color}
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
+
+const docsStyles = StyleSheet.create({
+  container: { gap: 16 },
+  title: { fontSize: 24, fontFamily: 'DMSans_700Bold' },
+  description: { fontSize: 14, color: '#666', lineHeight: 20, fontFamily: 'DMSans_400Regular' },
+  section: { gap: 8 },
+  sectionTitle: { fontSize: 16, fontFamily: 'DMSans_600SemiBold' },
+  prop: { fontSize: 13, color: '#444', lineHeight: 18, fontFamily: 'DMSans_400Regular' },
+});
+
+const meta = {
+  title: 'Components/Badge',
+  component: Badge,
+  argTypes: {
+    size: {
+      control: 'select',
+      options: ['sm', 'md'],
+      description: 'Size variant',
+    },
+    color: {
+      control: 'select',
+      options: [
+        'default',
+        'white',
+        'primary',
+        'secondary',
+        'accent',
+        'positive',
+        'negative',
+        'attention',
+      ],
+      description: 'Color variant',
+    },
+    rounded: {
+      control: 'select',
+      options: ['xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', 'full'],
+      description: 'Border radius variant',
+    },
+    children: {
+      control: 'text',
+      description: 'Badge label text',
+    },
+  },
+  args: {
+    children: 'Badge',
+    size: 'sm',
+    color: 'default',
+    rounded: 'full',
+  },
+} satisfies Meta<BadgeProps>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Docs: Story = {
+  render: () => (
+    <View style={docsStyles.container}>
+      <Text style={docsStyles.title}>Badge</Text>
+      <Text style={docsStyles.description}>
+        A compact label for categorization, status, or counts. Supports color variants, sizes, icon
+        elements, and rounded shapes.
+      </Text>
+      <View style={docsStyles.section}>
+        <Text style={docsStyles.sectionTitle}>Props</Text>
+        <Text style={docsStyles.prop}>• size — 'sm' | 'md' (default: 'sm')</Text>
+        <Text style={docsStyles.prop}>
+          • color — 'default' | 'white' | 'primary' | 'secondary' | 'accent' | 'positive' |
+          'negative' | 'attention'
+        </Text>
+        <Text style={docsStyles.prop}>
+          • rounded — 'xs' ... '3xl' | 'full' (default: 'full')
+        </Text>
+        <Text style={docsStyles.prop}>• leftElement / rightElement — icon elements</Text>
+        <Text style={docsStyles.prop}>• children — badge label text</Text>
+      </View>
+      <View style={docsStyles.section}>
+        <Text style={docsStyles.sectionTitle}>Usage</Text>
+        <Badge color="primary">Badge</Badge>
+      </View>
+    </View>
+  ),
+};
+
+export const Default: Story = {};
+
+export const AllVariants: Story = {
+  render: () => (
+    <View style={{ gap: 16 }}>
+      <View style={{ flexDirection: 'row', gap: 8, flexWrap: 'wrap' }}>
+        <Badge color="default">Default</Badge>
+        <Badge color="white">White</Badge>
+        <Badge color="primary">Primary</Badge>
+        <Badge color="secondary">Secondary</Badge>
+        <Badge color="accent">Accent</Badge>
+        <Badge color="positive">Positive</Badge>
+        <Badge color="negative">Negative</Badge>
+        <Badge color="attention">Attention</Badge>
+      </View>
+      <View style={{ flexDirection: 'row', gap: 8, alignItems: 'center' }}>
+        <Badge size="sm" rounded="full">SM Rounded</Badge>
+        <Badge size="sm" rounded="sm">SM Squircle</Badge>
+        <Badge size="md" rounded="full">MD Rounded</Badge>
+        <Badge size="md" rounded="sm">MD Squircle</Badge>
+      </View>
+      <View style={{ flexDirection: 'row', gap: 8 }}>
+        <Badge color="default" leftElement={<PlusIcon />} rightElement={<PlusIcon />}>
+          With Icons
+        </Badge>
+      </View>
+    </View>
+  ),
+};
