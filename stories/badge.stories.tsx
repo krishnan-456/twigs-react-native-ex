@@ -1,11 +1,11 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
 import type { Meta, StoryObj } from '@storybook/react-native';
-import { Svg, Path } from 'react-native-svg';
-import { Badge, Text } from 'testing-twigs';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import { Path, Svg } from 'react-native-svg';
 import type { BadgeProps } from 'testing-twigs';
+import { Badge, Text } from 'testing-twigs';
 
-const PlusIcon = ({ size = 12, color = '#111' }: { size?: number; color?: string }) => (
+const PlusIcon = ({ size = 16, color = '#111' }: { size?: number; color?: string }) => (
   <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
     <Path
       d="M12 5V19M5 12H19"
@@ -26,10 +26,19 @@ const docsStyles = StyleSheet.create({
   prop: { fontSize: 13, color: '#444', lineHeight: 18, fontFamily: 'DMSans_400Regular' },
 });
 
+interface BadgeStoryArgs extends BadgeProps {
+  iconLeft?: boolean;
+  iconRight?: boolean;
+}
+
 const meta = {
   title: 'Components/Badge',
   component: Badge,
   argTypes: {
+    children: {
+      control: 'text',
+      description: 'Badge label text',
+    },
     size: {
       control: 'select',
       options: ['sm', 'md'],
@@ -54,9 +63,13 @@ const meta = {
       options: ['xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', 'full'],
       description: 'Border radius variant',
     },
-    children: {
-      control: 'text',
-      description: 'Badge label text',
+    iconLeft: {
+      control: 'boolean',
+      description: 'Show left icon',
+    },
+    iconRight: {
+      control: 'boolean',
+      description: 'Show right icon',
     },
   },
   args: {
@@ -64,8 +77,10 @@ const meta = {
     size: 'sm',
     color: 'default',
     rounded: 'full',
+    iconLeft: false,
+    iconRight: false,
   },
-} satisfies Meta<BadgeProps>;
+} satisfies Meta<BadgeStoryArgs>;
 
 export default meta;
 
@@ -100,7 +115,18 @@ export const Docs: Story = {
   ),
 };
 
-export const Default: Story = {};
+export const Default: Story = {
+  render: (args) => {
+    const { iconLeft, iconRight, ...badgeProps } = args as BadgeStoryArgs;
+    return (
+      <Badge
+        {...badgeProps}
+        leftElement={iconLeft ? <PlusIcon /> : undefined}
+        rightElement={iconRight ? <PlusIcon /> : undefined}
+      />
+    );
+  },
+};
 
 export const AllVariants: Story = {
   render: () => (

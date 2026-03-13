@@ -30,7 +30,7 @@
     "react-native-svg": "^15.15.1",
     "react-native-web": "~0.21.0",
     "storybook": "^10.2.16",
-    "testing-twigs": "^0.4.3"
+    "testing-twigs": "^0.4.5"
   },
   "devDependencies": {
     "@types/react": "~19.1.0",

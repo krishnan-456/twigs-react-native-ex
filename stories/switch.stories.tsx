@@ -35,11 +35,17 @@ const meta = {
       options: ['sm', 'md'],
       description: 'Switch size variant',
     },
+    color: {
+      control: 'select',
+      options: ['primary', 'secondary'],
+      description: 'Color variant',
+    },
   },
   args: {
     value: false,
     disabled: false,
     size: 'md',
+    color: 'primary',
   },
 } satisfies Meta<SwitchProps>;
 
@@ -60,6 +66,7 @@ export const Docs: Story = {
         <Text style={docsStyles.prop}>• value / checked — controlled state</Text>
         <Text style={docsStyles.prop}>• onValueChange / onChange — state callback</Text>
         <Text style={docsStyles.prop}>• size — 'sm' | 'md' (default: 'md')</Text>
+        <Text style={docsStyles.prop}>• color — 'primary' | 'secondary' (default: 'primary')</Text>
         <Text style={docsStyles.prop}>• disabled — boolean (default: false)</Text>
         <Text style={docsStyles.prop}>• defaultChecked — initial uncontrolled state</Text>
       </View>
@@ -78,6 +85,7 @@ export const AllVariants: Story = {
     const [value, setValue] = useState(false);
     return (
       <View style={{ gap: 16 }}>
+        <Text style={docsStyles.sectionTitle}>Primary</Text>
         <View style={docsStyles.row}>
           <Switch size="sm" value={false} />
           <Switch size="sm" value={true} />
@@ -89,6 +97,19 @@ export const AllVariants: Story = {
           <Switch size="md" value={true} />
           <Switch size="md" value={false} disabled />
           <Switch size="md" value={true} disabled />
+        </View>
+        <Text style={docsStyles.sectionTitle}>Secondary</Text>
+        <View style={docsStyles.row}>
+          <Switch size="sm" color="secondary" value={false} />
+          <Switch size="sm" color="secondary" value={true} />
+          <Switch size="sm" color="secondary" value={false} disabled />
+          <Switch size="sm" color="secondary" value={true} disabled />
+        </View>
+        <View style={docsStyles.row}>
+          <Switch size="md" color="secondary" value={false} />
+          <Switch size="md" color="secondary" value={true} />
+          <Switch size="md" color="secondary" value={false} disabled />
+          <Switch size="md" color="secondary" value={true} disabled />
         </View>
         <View style={docsStyles.row}>
           <Text>{value ? 'On' : 'Off'}</Text>

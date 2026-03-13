@@ -31,11 +31,6 @@ const meta = {
       control: 'text',
       description: 'Tooltip content text',
     },
-    size: {
-      control: 'select',
-      options: ['sm', 'md', 'lg'],
-      description: 'Size variant',
-    },
     side: {
       control: 'select',
       options: ['top', 'right', 'bottom', 'left'],
@@ -66,7 +61,6 @@ const meta = {
   },
   args: {
     content: 'Tooltip message will show up here',
-    size: 'sm',
     side: 'top',
     align: 'center',
     hasArrow: true,
@@ -91,7 +85,6 @@ export const Docs: Story = {
       <View style={docsStyles.section}>
         <Text style={docsStyles.sectionTitle}>Props</Text>
         <Text style={docsStyles.prop}>• content — string or ReactNode</Text>
-        <Text style={docsStyles.prop}>• size — 'sm' | 'md' | 'lg' (default: 'sm')</Text>
         <Text style={docsStyles.prop}>
           • side — 'top' | 'right' | 'bottom' | 'left' (default: 'top')
         </Text>

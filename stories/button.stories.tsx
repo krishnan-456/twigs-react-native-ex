@@ -11,6 +11,15 @@ const docsStyles = StyleSheet.create({
   section: { gap: 8 },
   sectionTitle: { fontSize: 16, fontFamily: 'DMSans_600SemiBold' },
   prop: { fontSize: 13, color: '#444', lineHeight: 18, fontFamily: 'DMSans_400Regular' },
+  darkBg: {
+    backgroundColor: '#1E293B',
+    padding: 16,
+    borderRadius: 8,
+    flexDirection: 'row',
+    gap: 8,
+    alignItems: 'center',
+    flexWrap: 'wrap',
+  },
 });
 
 const meta = {
@@ -23,7 +32,7 @@ const meta = {
     },
     size: {
       control: 'select',
-      options: ['xxs', 'xs', 'sm', 'md', 'lg', 'xl', '2xl'],
+      options: ['sm', 'md', 'lg', 'xl', '2xl'],
       description: 'Size preset',
     },
     variant: {
@@ -33,7 +42,7 @@ const meta = {
     },
     color: {
       control: 'select',
-      options: ['default', 'primary', 'secondary', 'bright', 'light', 'error'],
+      options: ['default', 'primary', 'secondary', 'light', 'error'],
       description: 'Color preset',
     },
     disabled: {
@@ -75,13 +84,13 @@ export const Docs: Story = {
       <View style={docsStyles.section}>
         <Text style={docsStyles.sectionTitle}>Props</Text>
         <Text style={docsStyles.prop}>
-          • size — 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' (default: 'sm')
+          • size — 'sm' | 'md' | 'lg' | 'xl' | '2xl' (default: 'sm')
         </Text>
         <Text style={docsStyles.prop}>
           • variant — 'solid' | 'outline' | 'ghost' (default: 'solid')
         </Text>
         <Text style={docsStyles.prop}>
-          • color — 'default' | 'primary' | 'secondary' | 'bright' | 'light' | 'error'
+          • color — 'default' | 'primary' | 'secondary' | 'light' | 'error'
         </Text>
         <Text style={docsStyles.prop}>• disabled — boolean (default: false)</Text>
         <Text style={docsStyles.prop}>• loading — boolean (default: false)</Text>
@@ -103,8 +112,6 @@ export const AllVariants: Story = {
   render: () => (
     <View style={{ gap: 16 }}>
       <View style={{ flexDirection: 'row', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
-        <Button size="xxs">XXS</Button>
-        <Button size="xs">XS</Button>
         <Button size="sm">SM</Button>
         <Button size="md">MD</Button>
         <Button size="lg">LG</Button>
@@ -115,9 +122,12 @@ export const AllVariants: Story = {
         <Button color="default">Default</Button>
         <Button color="primary">Primary</Button>
         <Button color="secondary">Secondary</Button>
-        <Button color="bright">Bright</Button>
-        <Button color="light">Light</Button>
         <Button color="error">Error</Button>
+      </View>
+      <View style={docsStyles.darkBg}>
+        <Button color="light" variant="solid">Light Solid</Button>
+        <Button color="light" variant="outline">Light Outline</Button>
+        <Button color="light" variant="ghost">Light Ghost</Button>
       </View>
       <View style={{ flexDirection: 'row', gap: 8, flexWrap: 'wrap' }}>
         <Button variant="solid" color="primary">Solid</Button>
