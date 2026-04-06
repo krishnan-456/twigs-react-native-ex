@@ -79,15 +79,13 @@ export const Docs: Story = {
       <View style={docsStyles.section}>
         <Text style={docsStyles.sectionTitle}>Usage</Text>
         <Text style={docsStyles.prop}>Tap the button below to open a modal.</Text>
-        <ModalDemo closeOnBackdropPress animationType="fade" />
+        <ModalDemo closeOnBackdropPress />
       </View>
     </View>
   ),
 };
 
-export const Default: Story = {
-  render: (args) => <ModalDemo {...args} />,
-};
+export const Default: Story = {};
 
 export const AllVariants: Story = {
   render: () => {

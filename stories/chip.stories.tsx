@@ -83,7 +83,7 @@ const meta = {
     children: 'Content',
     size: 'sm',
     color: 'secondary',
-    rounded: 'xs',
+    rounded: 'full',
     leftIcon: true,
     rightIcon: true,
     disabled: false,

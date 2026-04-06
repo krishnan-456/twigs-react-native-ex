@@ -19,7 +19,7 @@ const meta = {
   argTypes: {
     size: {
       control: 'select',
-      options: ['sm', 'md', 'lg', 'xl', '2xl'],
+      options: ['lg', 'xl'],
       description: 'Size preset',
     },
     variant: {
@@ -34,18 +34,6 @@ const meta = {
     disabled: {
       control: 'boolean',
       description: 'Disabled state',
-    },
-    editable: {
-      control: 'boolean',
-      description: 'Whether the input is editable',
-    },
-    secureTextEntry: {
-      control: 'boolean',
-      description: 'Password mode (dots)',
-    },
-    errorBorder: {
-      control: 'boolean',
-      description: 'Show error border styling',
     },
     errorMessage: {
       control: 'text',
@@ -62,12 +50,9 @@ const meta = {
   },
   args: {
     placeholder: 'Type something...',
-    size: 'md',
+    size: 'lg',
     variant: 'default',
     disabled: false,
-    editable: true,
-    secureTextEntry: false,
-    errorBorder: false,
     multiline: false,
   },
 } satisfies Meta<TextInputProps>;
@@ -86,12 +71,9 @@ export const Docs: Story = {
       </Text>
       <View style={docsStyles.section}>
         <Text style={docsStyles.sectionTitle}>Props</Text>
-        <Text style={docsStyles.prop}>
-          • size — 'sm' | 'md' | 'lg' | 'xl' | '2xl' (default: 'md')
-        </Text>
+        <Text style={docsStyles.prop}>• size — 'lg' | 'xl' (default: 'lg')</Text>
         <Text style={docsStyles.prop}>• variant — 'default' | 'filled' (default: 'default')</Text>
-        <Text style={docsStyles.prop}>• errorBorder / errorMessage — error state</Text>
-        <Text style={docsStyles.prop}>• secureTextEntry — password mode</Text>
+        <Text style={docsStyles.prop}>• errorMessage — error message below input</Text>
         <Text style={docsStyles.prop}>• multiline / numberOfLines — multiline support</Text>
         <Text style={docsStyles.prop}>• disabled — boolean (default: false)</Text>
       </View>
@@ -108,15 +90,12 @@ export const Default: Story = {};
 export const AllVariants: Story = {
   render: () => (
     <View style={{ gap: 12 }}>
-      <TextInput size="sm" placeholder="Small" />
-      <TextInput size="md" placeholder="Medium (default)" />
-      <TextInput size="lg" placeholder="Large" />
+      <TextInput size="lg" placeholder="Large (default)" />
       <TextInput size="xl" placeholder="Extra Large" />
       <TextInput variant="filled" placeholder="Filled variant" />
-      <TextInput errorBorder errorMessage="This field is required" placeholder="Error state" />
-      <TextInput secureTextEntry placeholder="Password" />
+      <TextInput errorMessage="This field is required" placeholder="Error state" />
       <TextInput multiline numberOfLines={3} placeholder="Multiline..." />
-      <TextInput disabled editable={false} placeholder="Disabled" />
+      <TextInput disabled placeholder="Disabled" />
     </View>
   ),
 };

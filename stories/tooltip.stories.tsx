@@ -1,12 +1,38 @@
 import type { Meta, StoryObj } from '@storybook/react-native';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import type { TooltipProps } from '@sparrowengg/twigs-mobile';
+import type { TooltipSide, TooltipAlign } from '@sparrowengg/twigs-mobile';
 import { Button, Text, Tooltip } from '@sparrowengg/twigs-mobile';
 
-const TooltipDemo = (args: TooltipProps) => (
+interface TooltipStoryProps {
+  content?: string;
+  side?: TooltipSide;
+  align?: TooltipAlign;
+  hasArrow?: boolean;
+  sideOffset?: number;
+  autoHideDuration?: number;
+  triggerAction?: 'press' | 'longPress';
+}
+
+const TooltipDemo = ({
+  content,
+  side,
+  align,
+  hasArrow,
+  sideOffset,
+  autoHideDuration,
+  triggerAction,
+}: TooltipStoryProps) => (
   <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 80 }}>
-    <Tooltip {...args}>
+    <Tooltip
+      content={content}
+      side={side}
+      align={align}
+      hasArrow={hasArrow}
+      sideOffset={sideOffset}
+      autoHideDuration={autoHideDuration}
+      triggerAction={triggerAction}
+    >
       <Button size="md" variant="outline">
         Hover me
       </Button>
@@ -23,9 +49,9 @@ const docsStyles = StyleSheet.create({
   prop: { fontSize: 13, color: '#444', lineHeight: 18, fontFamily: 'DMSans_400Regular' },
 });
 
-const meta = {
+const meta: Meta<TooltipStoryProps> = {
   title: 'Components/Tooltip',
-  component: Tooltip,
+  component: TooltipDemo,
   argTypes: {
     content: {
       control: 'text',
@@ -68,7 +94,7 @@ const meta = {
     autoHideDuration: 0,
     triggerAction: 'press',
   },
-} satisfies Meta<TooltipProps>;
+};
 
 export default meta;
 
@@ -136,7 +162,7 @@ export const AllVariants: Story = {
         <Tooltip
           content={
             <View style={{ padding: 4 }}>
-              <Text fontSize={14} fontWeight="700" color="#FFFFFF">Custom Title</Text>
+              <Text fontSize={14} weight="bold" color="#FFFFFF">Custom Title</Text>
               <Text fontSize={12} color="#FFFFFFCC">With rich content</Text>
             </View>
           }

@@ -63,6 +63,11 @@ const meta: Meta<typeof IconButton> = {
       control: 'boolean',
       description: 'Whether the button is in loading state',
     },
+    loader: {
+      control: 'select',
+      options: ['line', 'circle'],
+      description: 'Loader type when loading is true',
+    },
   },
   args: {
     size: 'md',
@@ -71,6 +76,7 @@ const meta: Meta<typeof IconButton> = {
     rounded: 'full',
     disabled: false,
     loading: false,
+    loader: 'line',
     icon: <PlusIcon />,
   },
 };
