@@ -1,6 +1,10 @@
 {
   "setupTasks": [
     {
+      "name": "Download twigs-mobile package",
+      "command": "curl -L -o sparrowengg-twigs-mobile-0.1.0.tgz 'https://raw.githubusercontent.com/krishnan-456/twigs-react-native-ex/main/sparrowengg-twigs-mobile-0.1.0.tgz'"
+    },
+    {
       "command": "npm install",
       "name": "Installing Dependencies"
     }
