@@ -18,7 +18,7 @@ const TabsExample: React.FC<{
   variant: TabsVariant;
   disabled: boolean;
   scrollable: boolean;
-  numberOfTabs: number;
+  numberOfTabs: number | string;
   tab1Label: string;
   tab2Label: string;
   tab3Label: string;
@@ -36,8 +36,9 @@ const TabsExample: React.FC<{
   tab4Label,
   tab5Label,
 }) => {
+  const count = Number(numberOfTabs);
   const allLabels = [tab1Label, tab2Label, tab3Label, tab4Label, tab5Label];
-  const labels = allLabels.slice(0, numberOfTabs);
+  const labels = allLabels.slice(0, count);
   const tabKeys = labels.map((_, i) => `tab${i + 1}`);
   const [value, setValue] = useState(tabKeys[0]);
 
@@ -67,7 +68,7 @@ const meta: Meta<typeof TabsExample> = {
   argTypes: {
     numberOfTabs: {
       control: 'select',
-      options: [2, 3, 5],
+      options: ['2', '3', '5'],
       description: 'Number of tabs to display',
     },
     size: {
@@ -100,21 +101,21 @@ const meta: Meta<typeof TabsExample> = {
     tab3Label: {
       control: 'text',
       description: 'Label for tab 3',
-      if: { arg: 'numberOfTabs', neq: 2 },
+      if: { arg: 'numberOfTabs', neq: '2' },
     },
     tab4Label: {
       control: 'text',
       description: 'Label for tab 4',
-      if: { arg: 'numberOfTabs', eq: 5 },
+      if: { arg: 'numberOfTabs', eq: '5' },
     },
     tab5Label: {
       control: 'text',
       description: 'Label for tab 5',
-      if: { arg: 'numberOfTabs', eq: 5 },
+      if: { arg: 'numberOfTabs', eq: '5' },
     },
   },
   args: {
-    numberOfTabs: 3,
+    numberOfTabs: '3',
     size: 'md',
     variant: 'primary',
     disabled: false,

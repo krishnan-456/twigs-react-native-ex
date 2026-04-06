@@ -16,7 +16,7 @@ const StepperExample: React.FC<{
   activeStep: number;
   allowClick: boolean;
   scrollable?: boolean;
-  numberOfSteps: number;
+  numberOfSteps: number | string;
   step1Label: string;
   step2Label: string;
   step3Label: string;
@@ -33,9 +33,10 @@ const StepperExample: React.FC<{
   step4Label,
   step5Label,
 }) => {
+  const count = Number(numberOfSteps);
   const allLabels = [step1Label, step2Label, step3Label, step4Label, step5Label];
-  const labels = allLabels.slice(0, numberOfSteps);
-  const clampedStep = Math.min(initialStep, numberOfSteps - 1);
+  const labels = allLabels.slice(0, count);
+  const clampedStep = Math.min(initialStep, count - 1);
   const [step, setStep] = useState(clampedStep);
 
   return (
@@ -57,7 +58,7 @@ const meta: Meta<typeof StepperExample> = {
   argTypes: {
     numberOfSteps: {
       control: 'select',
-      options: [2, 3, 5],
+      options: ['2', '3', '5'],
       description: 'Number of steps to display',
     },
     activeStep: {
@@ -84,21 +85,21 @@ const meta: Meta<typeof StepperExample> = {
     step3Label: {
       control: 'text',
       description: 'Label for step 3',
-      if: { arg: 'numberOfSteps', neq: 2 },
+      if: { arg: 'numberOfSteps', neq: '2' },
     },
     step4Label: {
       control: 'text',
       description: 'Label for step 4',
-      if: { arg: 'numberOfSteps', eq: 5 },
+      if: { arg: 'numberOfSteps', eq: '5' },
     },
     step5Label: {
       control: 'text',
       description: 'Label for step 5',
-      if: { arg: 'numberOfSteps', eq: 5 },
+      if: { arg: 'numberOfSteps', eq: '5' },
     },
   },
   args: {
-    numberOfSteps: 2,
+    numberOfSteps: '2',
     activeStep: 0,
     allowClick: true,
     scrollable: true,
