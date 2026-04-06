@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-native';
-import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import type { TextInputProps } from '@sparrowengg/twigs-mobile';
 import { Text, TextInput } from '@sparrowengg/twigs-mobile';
@@ -39,10 +38,6 @@ const meta = {
       control: 'text',
       description: 'Error message displayed below input',
     },
-    multiline: {
-      control: 'boolean',
-      description: 'Multi-line text input',
-    },
     maxLength: {
       control: 'number',
       description: 'Maximum character length',
@@ -53,7 +48,6 @@ const meta = {
     size: 'lg',
     variant: 'default',
     disabled: false,
-    multiline: false,
   },
 } satisfies Meta<TextInputProps>;
 
@@ -66,15 +60,13 @@ export const Docs: Story = {
     <View style={docsStyles.container}>
       <Text style={docsStyles.title}>TextInput</Text>
       <Text style={docsStyles.description}>
-        A styled text input with size and variant presets, error states, password toggle, and
-        multiline support.
+        A styled text input with size and variant presets, error states support.
       </Text>
       <View style={docsStyles.section}>
         <Text style={docsStyles.sectionTitle}>Props</Text>
         <Text style={docsStyles.prop}>• size — 'lg' | 'xl' (default: 'lg')</Text>
         <Text style={docsStyles.prop}>• variant — 'default' | 'filled' (default: 'default')</Text>
         <Text style={docsStyles.prop}>• errorMessage — error message below input</Text>
-        <Text style={docsStyles.prop}>• multiline / numberOfLines — multiline support</Text>
         <Text style={docsStyles.prop}>• disabled — boolean (default: false)</Text>
       </View>
       <View style={docsStyles.section}>
@@ -94,7 +86,6 @@ export const AllVariants: Story = {
       <TextInput size="xl" placeholder="Extra Large" />
       <TextInput variant="filled" placeholder="Filled variant" />
       <TextInput errorMessage="This field is required" placeholder="Error state" />
-      <TextInput multiline numberOfLines={3} placeholder="Multiline..." />
       <TextInput disabled placeholder="Disabled" />
     </View>
   ),
