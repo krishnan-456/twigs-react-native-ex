@@ -14,7 +14,7 @@
     "@expo-google-fonts/dm-sans": "^0.4.2",
     "@gorhom/bottom-sheet": "^5.2.8",
     "@react-native-async-storage/async-storage": "2.2.0",
-    "@sparrowengg/twigs-mobile": "file:.yalc/@sparrowengg/twigs-mobile",
+    "@sparrowengg/twigs-mobile": "file:sparrowengg-twigs-mobile-0.1.0.tgz",
     "@storybook/addon-ondevice-controls": "^10.2.3",
     "@storybook/react-native": "^10.2.3",
     "expo": "~54.0.32",
