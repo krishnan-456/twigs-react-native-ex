@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Pressable, StyleSheet } from 'react-native';
 import type { Meta, StoryObj } from '@storybook/react-native';
-import { ToastProvider, Text } from 'testing-twigs';
-import { toast } from 'testing-twigs';
-import { LinkButton } from 'testing-twigs';
-import type { ToastVariant, ToastPosition } from 'testing-twigs';
+import { ToastProvider, Text } from '@sparrowengg/twigs-mobile';
+import { toast } from '@sparrowengg/twigs-mobile';
+import { LinkButton } from '@sparrowengg/twigs-mobile';
+import type { ToastVariant, ToastPosition } from '@sparrowengg/twigs-mobile';
 
 interface ToastStoryProps {
   title: string;

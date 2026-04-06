@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import type { Meta, StoryObj } from '@storybook/react-native';
-import { Checkbox, Text } from 'testing-twigs';
-import type { CheckboxProps } from 'testing-twigs';
+import { Checkbox, Text } from '@sparrowengg/twigs-mobile';
+import type { CheckboxProps } from '@sparrowengg/twigs-mobile';
 
 const docsStyles = StyleSheet.create({
   container: { gap: 16 },

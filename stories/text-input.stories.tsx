@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-native';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import type { TextInputProps } from 'testing-twigs';
-import { Text, TextInput } from 'testing-twigs';
+import type { TextInputProps } from '@sparrowengg/twigs-mobile';
+import { Text, TextInput } from '@sparrowengg/twigs-mobile';
 
 const docsStyles = StyleSheet.create({
   container: { gap: 16 },

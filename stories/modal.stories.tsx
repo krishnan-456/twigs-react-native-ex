@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-native';
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import type { ModalProps } from 'testing-twigs';
-import { Button, Modal, ModalBody, ModalContent, ModalDescription, ModalFooter, ModalHeader, ModalTitle, Text } from 'testing-twigs';
+import type { ModalProps } from '@sparrowengg/twigs-mobile';
+import { Button, Modal, ModalBody, ModalContent, ModalDescription, ModalFooter, ModalHeader, ModalTitle, Text } from '@sparrowengg/twigs-mobile';
 
 const ModalDemo = (args: ModalProps) => {
   const [visible, setVisible] = useState(false);

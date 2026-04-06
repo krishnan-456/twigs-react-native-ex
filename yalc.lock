@@ -1,0 +1,9 @@
+{
+  "version": "v1",
+  "packages": {
+    "@sparrowengg/twigs-mobile": {
+      "signature": "b84ebc34cec5f4d4fb343c3b27468188",
+      "file": true
+    }
+  }
+}

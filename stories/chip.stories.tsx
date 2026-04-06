@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import type { Meta, StoryObj } from '@storybook/react-native';
 import { Svg, Path } from 'react-native-svg';
-import { Chip, Text } from 'testing-twigs';
-import type { ChipProps } from 'testing-twigs';
+import { Chip, Text } from '@sparrowengg/twigs-mobile';
+import type { ChipProps } from '@sparrowengg/twigs-mobile';
 
 const PlusIcon = ({ size = 16, color = '#3D424D' }: { size?: number; color?: string }) => (
   <Svg width={size} height={size} viewBox="0 0 16 16" fill="none">

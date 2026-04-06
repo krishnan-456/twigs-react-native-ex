@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import type { Meta, StoryObj } from '@storybook/react-native';
-import { Radio, Text } from 'testing-twigs';
-import type { RadioProps } from 'testing-twigs';
+import { Radio, Text } from '@sparrowengg/twigs-mobile';
+import type { RadioProps } from '@sparrowengg/twigs-mobile';
 
 const docsStyles = StyleSheet.create({
   container: { gap: 16 },

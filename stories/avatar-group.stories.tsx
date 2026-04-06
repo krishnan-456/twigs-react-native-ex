@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import type { Meta, StoryObj } from '@storybook/react-native';
-import { Avatar, Text } from 'testing-twigs';
-import { AvatarGroup } from 'testing-twigs';
-import type { AvatarGroupProps } from 'testing-twigs';
+import { Avatar, Text } from '@sparrowengg/twigs-mobile';
+import { AvatarGroup } from '@sparrowengg/twigs-mobile';
+import type { AvatarGroupProps } from '@sparrowengg/twigs-mobile';
 
 const SAMPLE_AVATARS = [
   { name: 'Ava Smith', imageSrc: 'https://i.pravatar.cc/150?img=1' },

@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-native';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import type { SeparatorProps } from 'testing-twigs';
-import { Separator, Text } from 'testing-twigs';
+import type { SeparatorProps } from '@sparrowengg/twigs-mobile';
+import { Separator, Text } from '@sparrowengg/twigs-mobile';
 
 const docsStyles = StyleSheet.create({
   container: { gap: 16 },

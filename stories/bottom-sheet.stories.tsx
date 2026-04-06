@@ -2,9 +2,9 @@ import React, { useCallback, useRef } from 'react';
 import { View, Pressable, StyleSheet } from 'react-native';
 import type { Meta, StoryObj } from '@storybook/react-native';
 import BottomSheetLib from '@gorhom/bottom-sheet';
-import { BottomSheet, Text } from 'testing-twigs';
+import { BottomSheet, Text } from '@sparrowengg/twigs-mobile';
 import { BottomSheetView } from '@gorhom/bottom-sheet';
-import type { BottomSheetProps } from 'testing-twigs';
+import type { BottomSheetProps } from '@sparrowengg/twigs-mobile';
 
 const docsStyles = StyleSheet.create({
   container: { gap: 16 },

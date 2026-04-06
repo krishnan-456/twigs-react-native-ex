@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import type { Meta, StoryObj } from '@storybook/react-native';
-import { Avatar, Text } from 'testing-twigs';
-import type { AvatarProps } from 'testing-twigs';
+import { Avatar, Text } from '@sparrowengg/twigs-mobile';
+import type { AvatarProps } from '@sparrowengg/twigs-mobile';
 
 const SAMPLE_AVATAR_URL =
   'https://images.unsplash.com/photo-1511485977113-f34c92461ad9?ixlib=rb-1.2.1&w=512&h=512&dpr=2&q=80';

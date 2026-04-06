@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import type { Meta, StoryObj } from '@storybook/react-native';
 import { Svg, Line } from 'react-native-svg';
-import { IconButton, Text } from 'testing-twigs';
+import { IconButton, Text } from '@sparrowengg/twigs-mobile';
 
 const PlusIcon = ({ size = 16, color = '#FFFFFF' }: { size?: number; color?: string }) => (
   <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">

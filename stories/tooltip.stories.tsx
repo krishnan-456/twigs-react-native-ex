@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-native';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import type { TooltipProps } from 'testing-twigs';
-import { Button, Text, Tooltip } from 'testing-twigs';
+import type { TooltipProps } from '@sparrowengg/twigs-mobile';
+import { Button, Text, Tooltip } from '@sparrowengg/twigs-mobile';
 
 const TooltipDemo = (args: TooltipProps) => (
   <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 80 }}>

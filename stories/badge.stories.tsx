@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from '@storybook/react-native';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Path, Svg } from 'react-native-svg';
-import type { BadgeProps } from 'testing-twigs';
-import { Badge, Text } from 'testing-twigs';
+import type { BadgeProps } from '@sparrowengg/twigs-mobile';
+import { Badge, Text } from '@sparrowengg/twigs-mobile';
 
 const PlusIcon = ({ size = 16, color = '#111' }: { size?: number; color?: string }) => (
   <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">

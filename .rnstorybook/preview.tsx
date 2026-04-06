@@ -2,13 +2,12 @@ import type { Preview } from '@storybook/react-native';
 import React from 'react';
 import { View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { BottomSheetModalProvider, TwigsProvider } from 'testing-twigs';
+import { BottomSheetModalProvider, TwigsProvider } from '@sparrowengg/twigs-mobile';
 
 const customTheme = {
   fonts: {
     regular: 'DMSans_400Regular',
     medium: 'DMSans_500Medium',
-    semiBold: 'DMSans_600SemiBold',
     bold: 'DMSans_700Bold',
   },
 };

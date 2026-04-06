@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import type { Meta, StoryObj } from '@storybook/react-native';
-import { Switch, Text } from 'testing-twigs';
-import type { SwitchProps } from 'testing-twigs';
+import { Switch, Text } from '@sparrowengg/twigs-mobile';
+import type { SwitchProps } from '@sparrowengg/twigs-mobile';
 
 const docsStyles = StyleSheet.create({
   container: { gap: 16 },

@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import type { Meta, StoryObj } from '@storybook/react-native';
-import { CircleLoader, Text } from 'testing-twigs';
-import type { CircleLoaderProps } from 'testing-twigs';
+import { CircleLoader, Text } from '@sparrowengg/twigs-mobile';
+import type { CircleLoaderProps } from '@sparrowengg/twigs-mobile';
 
 const docsStyles = StyleSheet.create({
   container: { gap: 16 },

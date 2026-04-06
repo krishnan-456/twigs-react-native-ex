@@ -2,7 +2,7 @@ import { useRouter } from 'expo-router';
 import { useCallback } from 'react';
 import { FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Flex, Separator, Text } from 'testing-twigs';
+import { Flex, Separator, Text } from '@sparrowengg/twigs-mobile';
 
 interface ComponentItem {
   name: string;
@@ -18,6 +18,7 @@ const COMPONENTS: ComponentItem[] = [
   { name: 'Button', category: 'Actions', description: 'Primary action triggers' },
   { name: 'Checkbox', category: 'Form Controls', description: 'Multi-select toggles' },
   { name: 'Chip', category: 'Data Display', description: 'Compact labels and filters' },
+  { name: 'DropdownMenu', category: 'Overlay', description: 'Anchored dropdown menus' },
   { name: 'IconButton', category: 'Actions', description: 'Icon-only action buttons' },
   { name: 'LinkButton', category: 'Actions', description: 'Text-style link buttons' },
   { name: 'Loader', category: 'Feedback', description: 'Loading indicators' },
@@ -25,8 +26,11 @@ const COMPONENTS: ComponentItem[] = [
   { name: 'Radio', category: 'Form Controls', description: 'Single-select options' },
   { name: 'SegmentedButton', category: 'Form Controls', description: 'Grouped option selector' },
   { name: 'Separator', category: 'Layout', description: 'Visual divider lines' },
+  { name: 'Stepper', category: 'Navigation', description: 'Multi-step wizard progress' },
   { name: 'Switch', category: 'Form Controls', description: 'On/off toggles' },
+  { name: 'Tabs', category: 'Navigation', description: 'Tabbed content panels' },
   { name: 'Text', category: 'Typography', description: 'Text rendering with theme styles' },
+  { name: 'TextArea', category: 'Form Controls', description: 'Multi-line text input' },
   { name: 'TextInput', category: 'Form Controls', description: 'Text entry fields' },
   { name: 'Toast', category: 'Feedback', description: 'Temporary popup messages' },
   { name: 'Tooltip', category: 'Overlay', description: 'Contextual help popups' },
@@ -54,7 +58,7 @@ export default function ComponentsList() {
         >
           <Flex css={styles.rowContent}>
             <Flex css={styles.rowText}>
-              <Text fontSize={16} fontWeight="600" css={styles.name}>
+              <Text fontSize={16} weight="medium" css={styles.name}>
                 {item.name}
               </Text>
               <Text fontSize={13} css={styles.description}>
@@ -62,7 +66,7 @@ export default function ComponentsList() {
               </Text>
             </Flex>
             <Flex css={styles.categoryBadge}>
-              <Text fontSize={11} fontWeight="500" css={styles.categoryText}>
+              <Text fontSize={11} weight="medium" css={styles.categoryText}>
                 {item.category}
               </Text>
             </Flex>
@@ -79,7 +83,7 @@ export default function ComponentsList() {
   return (
     <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
       <Flex css={styles.header}>
-        <Text fontSize={24} fontWeight="700">
+        <Text fontSize={24} weight="bold">
           Components
         </Text>
       </Flex>

@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import type { Meta, StoryObj } from '@storybook/react-native';
-import { Alert, Text } from 'testing-twigs';
-import type { AlertProps } from 'testing-twigs';
+import { Alert, Text } from '@sparrowengg/twigs-mobile';
+import type { AlertProps } from '@sparrowengg/twigs-mobile';
 
 const docsStyles = StyleSheet.create({
   container: { gap: 16 },

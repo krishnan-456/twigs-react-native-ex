@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import type { Meta, StoryObj } from '@storybook/react-native';
-import { SegmentedButton, Text } from 'testing-twigs';
-import type { SegmentedButtonProps } from 'testing-twigs';
+import { SegmentedButton, Text } from '@sparrowengg/twigs-mobile';
+import type { SegmentedButtonProps } from '@sparrowengg/twigs-mobile';
 
 const DEFAULT_OPTIONS = [
   { value: 'option1', label: 'Option 1' },
