@@ -16,49 +16,37 @@ const StepperExample: React.FC<{
   activeStep: number;
   allowClick: boolean;
   scrollable?: boolean;
-}> = ({ activeStep: initialStep, allowClick, scrollable }) => {
-  const [step, setStep] = useState(initialStep);
+  numberOfSteps: number;
+  step1Label: string;
+  step2Label: string;
+  step3Label: string;
+  step4Label: string;
+  step5Label: string;
+}> = ({
+  activeStep: initialStep,
+  allowClick,
+  scrollable,
+  numberOfSteps,
+  step1Label,
+  step2Label,
+  step3Label,
+  step4Label,
+  step5Label,
+}) => {
+  const allLabels = [step1Label, step2Label, step3Label, step4Label, step5Label];
+  const labels = allLabels.slice(0, numberOfSteps);
+  const clampedStep = Math.min(initialStep, numberOfSteps - 1);
+  const [step, setStep] = useState(clampedStep);
 
   return (
     <Stepper activeStep={step} onStepChange={setStep} scrollable={scrollable}>
-      <StepperItem label="Recipients" allowClick={allowClick}>
-        <View style={{ padding: 16 }}>
-          <Text>Recipients content</Text>
-        </View>
-      </StepperItem>
-      <StepperItem label="Message" allowClick={allowClick}>
-        <View style={{ padding: 16 }}>
-          <Text>Message content</Text>
-        </View>
-      </StepperItem>
-    </Stepper>
-  );
-};
-
-const ThreeTriggerStepperExample: React.FC<{
-  activeStep: number;
-  allowClick: boolean;
-  scrollable?: boolean;
-}> = ({ activeStep: initialStep, allowClick, scrollable }) => {
-  const [step, setStep] = useState(initialStep);
-
-  return (
-    <Stepper activeStep={step} onStepChange={setStep} scrollable={scrollable}>
-      <StepperItem label="Recipients Recipients Recipients Recipients" allowClick={allowClick}>
-        <View style={{ padding: 16 }}>
-          <Text>Recipients content</Text>
-        </View>
-      </StepperItem>
-      <StepperItem label="Message" allowClick={allowClick}>
-        <View style={{ padding: 16 }}>
-          <Text>Message content</Text>
-        </View>
-      </StepperItem>
-      <StepperItem label="Review" allowClick={allowClick}>
-        <View style={{ padding: 16 }}>
-          <Text>Review content</Text>
-        </View>
-      </StepperItem>
+      {labels.map((label, index) => (
+        <StepperItem key={index} label={label} allowClick={allowClick}>
+          <View style={{ padding: 16 }}>
+            <Text>{label} content</Text>
+          </View>
+        </StepperItem>
+      ))}
     </Stepper>
   );
 };
@@ -67,6 +55,11 @@ const meta: Meta<typeof StepperExample> = {
   title: 'Components/Stepper',
   component: StepperExample,
   argTypes: {
+    numberOfSteps: {
+      control: 'select',
+      options: [2, 3, 5],
+      description: 'Number of steps to display',
+    },
     activeStep: {
       control: 'number',
       description: 'Active step index (0-based)',
@@ -80,10 +73,40 @@ const meta: Meta<typeof StepperExample> = {
       description:
         'Whether step triggers can scroll horizontally (default: true). When false, steps share equal width and labels truncate.',
     },
+    step1Label: {
+      control: 'text',
+      description: 'Label for step 1',
+    },
+    step2Label: {
+      control: 'text',
+      description: 'Label for step 2',
+    },
+    step3Label: {
+      control: 'text',
+      description: 'Label for step 3',
+      if: { arg: 'numberOfSteps', neq: 2 },
+    },
+    step4Label: {
+      control: 'text',
+      description: 'Label for step 4',
+      if: { arg: 'numberOfSteps', eq: 5 },
+    },
+    step5Label: {
+      control: 'text',
+      description: 'Label for step 5',
+      if: { arg: 'numberOfSteps', eq: 5 },
+    },
   },
   args: {
+    numberOfSteps: 2,
     activeStep: 0,
     allowClick: true,
+    scrollable: true,
+    step1Label: 'Recipients',
+    step2Label: 'Message',
+    step3Label: 'Review',
+    step4Label: 'Confirm',
+    step5Label: 'Done',
   },
 };
 
@@ -119,7 +142,16 @@ export const Docs: Story = {
       <View style={docsStyles.section}>
         <Text style={docsStyles.sectionTitle}>Usage</Text>
         <View style={{ marginTop: 8 }}>
-          <StepperExample activeStep={1} allowClick />
+          <StepperExample
+            numberOfSteps={3}
+            activeStep={1}
+            allowClick
+            step1Label="Recipients"
+            step2Label="Message"
+            step3Label="Review"
+            step4Label="Confirm"
+            step5Label="Done"
+          />
         </View>
       </View>
     </View>
@@ -127,10 +159,6 @@ export const Docs: Story = {
 };
 
 export const Default: Story = {};
-
-export const ThreeTriggers: Story = {
-  render: () => <ThreeTriggerStepperExample activeStep={1} allowClick />,
-};
 
 export const AllVariants: Story = {
   render: () => (
@@ -141,7 +169,16 @@ export const AllVariants: Story = {
         >
           Step 1 Active
         </Text>
-        <StepperExample activeStep={0} allowClick />
+        <StepperExample
+          numberOfSteps={2}
+          activeStep={0}
+          allowClick
+          step1Label="Recipients"
+          step2Label="Message"
+          step3Label="Review"
+          step4Label="Confirm"
+          step5Label="Done"
+        />
       </View>
       <View>
         <Text
@@ -149,15 +186,16 @@ export const AllVariants: Story = {
         >
           Step 2 Active (Step 1 completed)
         </Text>
-        <StepperExample activeStep={1} allowClick />
-      </View>
-      <View>
-        <Text
-          style={{ fontSize: 12, fontFamily: 'DMSans_600SemiBold', marginBottom: 8, color: '#666' }}
-        >
-          3 Triggers Example
-        </Text>
-        <ThreeTriggerStepperExample activeStep={2} allowClick />
+        <StepperExample
+          numberOfSteps={2}
+          activeStep={1}
+          allowClick
+          step1Label="Recipients"
+          step2Label="Message"
+          step3Label="Review"
+          step4Label="Confirm"
+          step5Label="Done"
+        />
       </View>
       <View>
         <Text
@@ -165,7 +203,34 @@ export const AllVariants: Story = {
         >
           Non-clickable Steps
         </Text>
-        <StepperExample activeStep={1} allowClick={false} />
+        <StepperExample
+          numberOfSteps={2}
+          activeStep={1}
+          allowClick={false}
+          step1Label="Recipients"
+          step2Label="Message"
+          step3Label="Review"
+          step4Label="Confirm"
+          step5Label="Done"
+        />
+      </View>
+      <View>
+        <Text
+          style={{ fontSize: 12, fontFamily: 'DMSans_600SemiBold', marginBottom: 8, color: '#666' }}
+        >
+          Fitted (non-scrollable)
+        </Text>
+        <StepperExample
+          numberOfSteps={3}
+          activeStep={0}
+          allowClick
+          scrollable={false}
+          step1Label="Recipients"
+          step2Label="Message"
+          step3Label="Review"
+          step4Label="Confirm"
+          step5Label="Done"
+        />
       </View>
     </View>
   ),

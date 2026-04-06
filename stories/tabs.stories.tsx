@@ -18,33 +18,45 @@ const TabsExample: React.FC<{
   variant: TabsVariant;
   disabled: boolean;
   scrollable: boolean;
-}> = ({ size, variant, disabled, scrollable }) => {
-  const [value, setValue] = useState('tab1');
+  numberOfTabs: number;
+  tab1Label: string;
+  tab2Label: string;
+  tab3Label: string;
+  tab4Label: string;
+  tab5Label: string;
+}> = ({
+  size,
+  variant,
+  disabled,
+  scrollable,
+  numberOfTabs,
+  tab1Label,
+  tab2Label,
+  tab3Label,
+  tab4Label,
+  tab5Label,
+}) => {
+  const allLabels = [tab1Label, tab2Label, tab3Label, tab4Label, tab5Label];
+  const labels = allLabels.slice(0, numberOfTabs);
+  const tabKeys = labels.map((_, i) => `tab${i + 1}`);
+  const [value, setValue] = useState(tabKeys[0]);
 
   return (
     <Tabs value={value} onValueChange={setValue}>
       <TabsList size={size} variant={variant} scrollable={scrollable} accessibilityLabel="Example tabs">
-        <TabsTrigger value="tab1" disabled={disabled}>
-          All 18
-        </TabsTrigger>
-        <TabsTrigger value="tab2">Active</TabsTrigger>
-        <TabsTrigger value="tab3">Completed</TabsTrigger>
+        {labels.map((label, i) => (
+          <TabsTrigger key={tabKeys[i]} value={tabKeys[i]} disabled={i === 0 ? disabled : false}>
+            {label}
+          </TabsTrigger>
+        ))}
       </TabsList>
-      <TabsContent value="tab1">
-        <View style={{ padding: 16 }}>
-          <Text>All items content</Text>
-        </View>
-      </TabsContent>
-      <TabsContent value="tab2">
-        <View style={{ padding: 16 }}>
-          <Text>Active items content</Text>
-        </View>
-      </TabsContent>
-      <TabsContent value="tab3">
-        <View style={{ padding: 16 }}>
-          <Text>Completed items content</Text>
-        </View>
-      </TabsContent>
+      {labels.map((label, i) => (
+        <TabsContent key={tabKeys[i]} value={tabKeys[i]}>
+          <View style={{ padding: 16 }}>
+            <Text>{label} content</Text>
+          </View>
+        </TabsContent>
+      ))}
     </Tabs>
   );
 };
@@ -53,6 +65,11 @@ const meta: Meta<typeof TabsExample> = {
   title: 'Components/Tabs',
   component: TabsExample,
   argTypes: {
+    numberOfTabs: {
+      control: 'select',
+      options: [2, 3, 5],
+      description: 'Number of tabs to display',
+    },
     size: {
       control: 'select',
       options: ['md', 'lg'],
@@ -72,12 +89,41 @@ const meta: Meta<typeof TabsExample> = {
       description:
         'Whether tab triggers can scroll horizontally (default: true). When false, triggers share equal width.',
     },
+    tab1Label: {
+      control: 'text',
+      description: 'Label for tab 1',
+    },
+    tab2Label: {
+      control: 'text',
+      description: 'Label for tab 2',
+    },
+    tab3Label: {
+      control: 'text',
+      description: 'Label for tab 3',
+      if: { arg: 'numberOfTabs', neq: 2 },
+    },
+    tab4Label: {
+      control: 'text',
+      description: 'Label for tab 4',
+      if: { arg: 'numberOfTabs', eq: 5 },
+    },
+    tab5Label: {
+      control: 'text',
+      description: 'Label for tab 5',
+      if: { arg: 'numberOfTabs', eq: 5 },
+    },
   },
   args: {
+    numberOfTabs: 3,
     size: 'md',
     variant: 'primary',
     disabled: false,
     scrollable: true,
+    tab1Label: 'All 18',
+    tab2Label: 'Active',
+    tab3Label: 'Completed',
+    tab4Label: 'Archived',
+    tab5Label: 'Deleted',
   },
 };
 
@@ -112,18 +158,18 @@ export const Docs: Story = {
       <View style={docsStyles.section}>
         <Text style={docsStyles.sectionTitle}>Usage</Text>
         <View style={{ marginTop: 8 }}>
-          <Tabs defaultValue="tab1">
-            <TabsList size="md">
-              <TabsTrigger value="tab1">Tab 1</TabsTrigger>
-              <TabsTrigger value="tab2">Tab 2</TabsTrigger>
-            </TabsList>
-            <TabsContent value="tab1">
-              <Text>Content 1</Text>
-            </TabsContent>
-            <TabsContent value="tab2">
-              <Text>Content 2</Text>
-            </TabsContent>
-          </Tabs>
+          <TabsExample
+            numberOfTabs={2}
+            size="md"
+            variant="primary"
+            disabled={false}
+            scrollable
+            tab1Label="Tab 1"
+            tab2Label="Tab 2"
+            tab3Label="Tab 3"
+            tab4Label="Tab 4"
+            tab5Label="Tab 5"
+          />
         </View>
       </View>
     </View>
@@ -141,7 +187,18 @@ export const AllVariants: Story = {
         >
           Size: Medium
         </Text>
-        <TabsExample size="md" variant="primary" disabled={false} scrollable />
+        <TabsExample
+          numberOfTabs={3}
+          size="md"
+          variant="primary"
+          disabled={false}
+          scrollable
+          tab1Label="All 18"
+          tab2Label="Active"
+          tab3Label="Completed"
+          tab4Label="Archived"
+          tab5Label="Deleted"
+        />
       </View>
       <View>
         <Text
@@ -149,7 +206,18 @@ export const AllVariants: Story = {
         >
           Size: Large
         </Text>
-        <TabsExample size="lg" variant="primary" disabled={false} scrollable />
+        <TabsExample
+          numberOfTabs={3}
+          size="lg"
+          variant="primary"
+          disabled={false}
+          scrollable
+          tab1Label="All 18"
+          tab2Label="Active"
+          tab3Label="Completed"
+          tab4Label="Archived"
+          tab5Label="Deleted"
+        />
       </View>
       <View>
         <Text
@@ -157,15 +225,37 @@ export const AllVariants: Story = {
         >
           Variant: Dark
         </Text>
-        <TabsExample size="md" variant="dark" disabled={false} scrollable />
+        <TabsExample
+          numberOfTabs={3}
+          size="md"
+          variant="dark"
+          disabled={false}
+          scrollable
+          tab1Label="All 18"
+          tab2Label="Active"
+          tab3Label="Completed"
+          tab4Label="Archived"
+          tab5Label="Deleted"
+        />
       </View>
       <View>
         <Text
           style={{ fontSize: 12, fontFamily: 'DMSans_600SemiBold', marginBottom: 8, color: '#666' }}
         >
-          Disabled
+          Disabled (first tab)
         </Text>
-        <TabsExample size="md" variant="primary" disabled={true} scrollable />
+        <TabsExample
+          numberOfTabs={3}
+          size="md"
+          variant="primary"
+          disabled={true}
+          scrollable
+          tab1Label="All 18"
+          tab2Label="Active"
+          tab3Label="Completed"
+          tab4Label="Archived"
+          tab5Label="Deleted"
+        />
       </View>
       <View>
         <Text
@@ -173,7 +263,37 @@ export const AllVariants: Story = {
         >
           Fitted (non-scrollable)
         </Text>
-        <TabsExample size="md" variant="primary" disabled={false} scrollable={false} />
+        <TabsExample
+          numberOfTabs={3}
+          size="md"
+          variant="primary"
+          disabled={false}
+          scrollable={false}
+          tab1Label="All 18"
+          tab2Label="Active"
+          tab3Label="Completed"
+          tab4Label="Archived"
+          tab5Label="Deleted"
+        />
+      </View>
+      <View>
+        <Text
+          style={{ fontSize: 12, fontFamily: 'DMSans_600SemiBold', marginBottom: 8, color: '#666' }}
+        >
+          5 Tabs
+        </Text>
+        <TabsExample
+          numberOfTabs={5}
+          size="md"
+          variant="primary"
+          disabled={false}
+          scrollable
+          tab1Label="All"
+          tab2Label="Active"
+          tab3Label="Completed"
+          tab4Label="Archived"
+          tab5Label="Deleted"
+        />
       </View>
     </View>
   ),
