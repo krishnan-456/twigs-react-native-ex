@@ -47,7 +47,7 @@ const meta: Meta<typeof DropdownMenuExample> = {
   argTypes: {
     size: {
       control: 'select',
-      options: ['sm', 'md'],
+      options: ['md', 'lg'],
       description: 'Size preset for menu items',
     },
   },
@@ -68,7 +68,7 @@ export const Docs: Story = {
       </Text>
       <View style={docsStyles.section}>
         <Text style={docsStyles.sectionTitle}>Props</Text>
-        <Text style={docsStyles.prop}>• size — 'sm' | 'md' (default: 'md')</Text>
+        <Text style={docsStyles.prop}>• size — 'md' | 'lg' (default: 'md')</Text>
         <Text style={docsStyles.prop}>• open — boolean (controlled open state)</Text>
         <Text style={docsStyles.prop}>• defaultOpen — boolean (default: false)</Text>
         <Text style={docsStyles.prop}>• onOpenChange — (open: boolean) =&gt; void</Text>
@@ -110,10 +110,10 @@ export const AllVariants: Story = {
   render: () => (
     <View style={{ gap: 32 }}>
       <View style={{ gap: 8 }}>
-        <Text style={{ fontSize: 14, fontFamily: 'DMSans_600SemiBold' }}>Size: sm</Text>
-        <DropdownMenu size="sm">
+        <Text style={{ fontSize: 14, fontFamily: 'DMSans_600SemiBold' }}>Size: md</Text>
+        <DropdownMenu size="md">
           <DropdownMenuTrigger>
-            <Button size="sm">Small Menu</Button>
+            <Button size="md">Medium Menu</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
@@ -126,10 +126,10 @@ export const AllVariants: Story = {
       </View>
 
       <View style={{ gap: 8 }}>
-        <Text style={{ fontSize: 14, fontFamily: 'DMSans_600SemiBold' }}>Size: md</Text>
-        <DropdownMenu size="md">
+        <Text style={{ fontSize: 14, fontFamily: 'DMSans_600SemiBold' }}>Size: lg</Text>
+        <DropdownMenu size="lg">
           <DropdownMenuTrigger>
-            <Button size="md">Medium Menu</Button>
+            <Button size="lg">Large Menu</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
